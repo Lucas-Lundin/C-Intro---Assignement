@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 15f;
-    [SerializeField] private float boostDirctionChange = 15f;
-    private float xInput;
-    private float zInput;
-    public Rigidbody thisRigidBody;
+    [SerializeField] private float moveForce = 15f;
+    [SerializeField] private float rotateSpeed = 4f;
+    [SerializeField] private float jumpForce = 150f;
+    private float inputUpDown;
+    private float inputRightLeft;
+    private bool inputSpace;
+    private Rigidbody thisRigidBody;
 
     // Start is called before the first frame update
     void Start()
@@ -33,39 +35,34 @@ public class PlayerController : MonoBehaviour
     {
         // Movment
         Move();
+        Jump();
     }
 
     // Checks for inputs
     private void ProcessInput()
     {
-        xInput = Input.GetAxis("Horizontal");
-        zInput = Input.GetAxis("Vertical");
+        inputRightLeft = Input.GetAxis("Horizontal");
+        inputUpDown = Input.GetAxis("Vertical");
+        inputSpace = Input.GetKey(KeyCode.Space);
     }
 
     private void Move()
     {
-        Debug.Log("X Vel: " + thisRigidBody.velocity.x + " xInput: " + xInput);
 
-        // Boosting force when changing Horizontal direction
-        float boostXDirctionChange = 1f;
-        if ((thisRigidBody.velocity.x < 0 && xInput > 0) || (thisRigidBody.velocity.x > 0 && xInput < 0))
-        {
-            boostXDirctionChange = boostDirctionChange;
-        }
-
-        // Boosting force when changing Vertical direction
-        float boostZDirctionChange = 1f;
-        if ((thisRigidBody.velocity.z < 0 && zInput > 0) || (thisRigidBody.velocity.z > 0 && zInput < 0))
-        {
-            boostZDirctionChange = boostDirctionChange;
-        }
+        // Movment Forward and Backwards
+        thisRigidBody.AddForce(transform.forward * inputUpDown * moveForce);
+        // Rotation Right and Left
+        transform.Rotate(Vector3.up, rotateSpeed * inputRightLeft);
 
 
-        thisRigidBody.AddForce(new Vector3(xInput * boostXDirctionChange, 0f, zInput * boostZDirctionChange) * moveSpeed);
-
-
-        //thisRigidBody.AddForce(new Vector3(xInput, 0f, zInput) * moveSpeed);
     }
-      
+    private void Jump()
+    { 
+    if (inputSpace)
+        {
+            thisRigidBody.AddForce(transform.up * moveForce);
+        }
+   
+    }
 
 }

@@ -764,7 +764,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-25952
+  m_Name: pb_Mesh-1260
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -975,7 +975,7 @@ PrefabInstance:
       objectReference: {fileID: 1465184692}
     - target: {fileID: 3230283044270852415, guid: 20a9b65fdb683704b89fc83e5c6deb7a, type: 3}
       propertyPath: m_VersionIndex
-      value: 3083
+      value: 3140
       objectReference: {fileID: 0}
     - target: {fileID: 4031661554029388777, guid: 20a9b65fdb683704b89fc83e5c6deb7a, type: 3}
       propertyPath: m_Mesh
@@ -1005,6 +1005,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 112741415}
+    - target: {fileID: 6896850110615674567, guid: 20a9b65fdb683704b89fc83e5c6deb7a, type: 3}
+      propertyPath: turnSpeed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6896850110615674567, guid: 20a9b65fdb683704b89fc83e5c6deb7a, type: 3}
+      propertyPath: rotateSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 9175387437193097302, guid: 20a9b65fdb683704b89fc83e5c6deb7a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1179,9 +1187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb1be5d6ee47b642a289810ae71debb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  boostDirctionChange: 15
-  thisRigidBody: {fileID: 0}
+  moveForce: 15
+  rotateSpeed: 10
+  jumpForce: 150
 --- !u!43 &1768016648
 Mesh:
   m_ObjectHideFlags: 0
