@@ -8,11 +8,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - TerrainPhysics
   - Water
   - UI
-  - 
-  - 
+  - Broom
+  - Player
   - 
   - 
   - 
