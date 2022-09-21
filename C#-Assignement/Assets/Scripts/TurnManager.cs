@@ -6,10 +6,9 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    private int turnIndex = 0; // Noone = 0, Player1 = 1, Player2 = 2 
+    private int turnIndex = 0; // Noone = 0, Player1 = 1, Player2 = 2.
     private int nextPlayerInLine = 1; //Stores the next players turn. 
-    private int numbersOfPlayers = 2; 
- 
+    [SerializeField] private GameObject[] turnObjects;
 
     // Singelton stuff 
     private static TurnManager instance;
@@ -24,16 +23,17 @@ public class TurnManager : MonoBehaviour
     {
         return instance;
     }
+    // End of singleton stuff.
+
+
+
+
 
 
     void Update()
     {
-        
-
         if (Input.GetKeyDown(KeyCode.R))
         {
-            
-           
             TurnManager.GetInstance().ChangeTurn();
         }
     }
@@ -41,13 +41,13 @@ public class TurnManager : MonoBehaviour
     
     public void ChangeTurn()
     {
-     /* Changes turn when callled: 
-     0 = paused
-     1 = player 1
-     0 = paused
-     2 = player 2
-     and repeating...
-     */
+        /* Changes turn when callled: 
+        0 = noones turn
+        1 = player 1
+        0 = noones turn
+        2 = player 2
+        and repeating...
+        */
         if (turnIndex != 0)  // If a player had the turn (1,2), change the turnIndex to be short pause (0). 
         {
             turnIndex = 0;
@@ -57,9 +57,9 @@ public class TurnManager : MonoBehaviour
             turnIndex = nextPlayerInLine;
 
             // Que the player to be next in  varibale nextPlayerInLine.
-            if (nextPlayerInLine < numbersOfPlayers)   
+            if (nextPlayerInLine == 1)   
             {
-                nextPlayerInLine++;
+                nextPlayerInLine = 2;
             }
             else
             {
@@ -80,6 +80,43 @@ public class TurnManager : MonoBehaviour
     {
         return nextPlayerInLine;
     }
+
+    public GameObject GetCurrentObj()  // Return the GameObject whose turn it is. 
+    {     
+        return turnObjects[turnIndex];
+    }
+
+    public GameObject GetNextPlayerObj() // Return the player GameObject whose next in turn. 
+    {
+        return turnObjects[nextPlayerInLine];
+    }
+
+    public GameObject GetCurrentPlayerObjElseNext() // Return the player GameObject whose next in turn. 
+    {
+        if (turnIndex != 0)
+        {
+            return turnObjects[turnIndex];
+        }
+        else 
+        {
+            return turnObjects[nextPlayerInLine];
+        }
+
+    }
+
+    public GameObject IfNoonesTurnGetNextPlayerObj() // If it's noones turn, Return the player GameObject whose next in turn. 
+    {
+        if (turnIndex == 0)
+        {
+            return turnObjects[nextPlayerInLine];
+        }
+        else
+        {
+            return turnObjects[0];
+        }
+    }
+
+
 }
 
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2177053835712419294}
   - component: {fileID: 6010748106457138351}
   - component: {fileID: 6896850110615674567}
-  - component: {fileID: 8395978556944440033}
+  - component: {fileID: 150244273192337049}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -83,12 +83,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb1be5d6ee47b642a289810ae71debb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkTurn: {fileID: 0}
   moveForce: 10
   jumpForce: 1500
   bombPrefab: {fileID: 8776560224247439354, guid: 3cbb08fb980656f4fbba1d970d38e4e2, type: 3}
   bomboSpawnPosition: {fileID: 4580436866707217583}
---- !u!114 &8395978556944440033
+--- !u!114 &150244273192337049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,10 +96,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1678105849224723733}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 710b606172c92b84bb412dc7a0dafe36, type: 3}
+  m_Script: {fileID: 11500000, guid: c2c3b57276bfb5f47b59fe88ec67d759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 0
 --- !u!1 &3327818524929849066
 GameObject:
   m_ObjectHideFlags: 0

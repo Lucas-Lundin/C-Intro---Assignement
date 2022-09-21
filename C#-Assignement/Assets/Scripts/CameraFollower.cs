@@ -7,52 +7,43 @@ public class CameraFollower : MonoBehaviour
 {
     [SerializeField] private GameObject player1;
     [SerializeField] private GameObject player2;
-    [SerializeField] private float offsetX;
-    [SerializeField] private float offsetY;
-    [SerializeField] private float offsetZ;
-    private bool ab = false;
-    private float diffX;
-    private float diffY;
-    private float diffZ;
+    [SerializeField] private GameObject areanaCenter;
 
-    private float player1posZ;
-    private float camposZ;
-    private float camplayer1diff;
+    [SerializeField] private float playerOffsetX;
+    [SerializeField] private float playerOffsetY;
+    [SerializeField] private float playerOffsetZ;
 
-    private void Awake()
-    {
-        
-    }
-    void Start()
-    {
-        float diffX = transform.position.x - player1.transform.position.x;
-        float diffY = transform.position.y;
-        float diffZ = player1.transform.position.z - transform.position.z;
+    [SerializeField] private float ArenaOffsetX;
+    [SerializeField] private float ArenaOffsetY;
+    [SerializeField] private float ArenaOffsetZ;
 
-        
-        ab = true;
-    }
 
     void Update()
     {
-        if (ab)
+        if (0 == TurnManager.GetInstance().GetTurnIndex())
+        { 
+            Follow(TurnManager.GetInstance().GetCurrentPlayerObjElseNext(), 0.008f);
+        }
+        else
         {
-            float player1posZ = player1.transform.position.z;
-            float camposZ = transform.position.z;
-            float camplayer1diff = player1posZ - camposZ;
-
-
-            FollowPlayerOne();
-            
-            Debug.Log("camplayer1diff: " + camplayer1diff + "   player1posZ: " + player1posZ + "    camposZ: " + camposZ);
-        }   
+            Follow(TurnManager.GetInstance().GetCurrentPlayerObjElseNext(), 0.02f);
+        }
     }
 
-    void FollowPlayerOne()
+    void Follow(GameObject targetObject, float lerpSpeed)
     {
-        
-        //transform.position = new Vector3(player1.transform.position.x + offsetX, transform.position.y, player1.transform.position.z + offsetZ);
-        transform.Translate(0f, 0f, camplayer1diff, Space.World);
+    
+
+        float targetX = targetObject.transform.position.x + playerOffsetX;
+        float targetY = transform.position.y + playerOffsetY;
+        float targetZ = targetObject.transform.position.z + playerOffsetZ;
+        Vector3 targetV3 = new Vector3(targetX, targetY, targetZ);
+
+        transform.position = Vector3.Lerp(transform.position, targetV3, lerpSpeed);
+
     }
+
+
+
 
 }

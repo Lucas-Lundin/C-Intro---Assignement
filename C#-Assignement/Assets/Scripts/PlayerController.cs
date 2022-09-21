@@ -8,7 +8,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody thisRigidBody;
-    [SerializeField] private CheckTurn checkTurn;
     [SerializeField] private float moveForce = 15f;
     [SerializeField] private float jumpForce = 150f;
     private float inputUpDown;
@@ -19,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private bool inputMouseLeftUp;
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private GameObject bomboSpawnPosition;
+    
 
     private Vector3 mouseSubTargetPosition;
     private Vector3 mouseTargetPosition;
@@ -57,7 +57,8 @@ public class PlayerController : MonoBehaviour
     // Checks for inputs
     private void ProcessInput()
     {
-        if (checkTurn.IsMyTurn())
+        
+        if (gameObject == TurnManager.GetInstance().GetCurrentObj())
         {
             inputRightLeft = Input.GetAxis("Horizontal");
             inputUpDown = Input.GetAxis("Vertical");
@@ -80,21 +81,24 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         //Debug.Log("MouseX: " + Mathf.Abs(mouseSubTargetPosition.x - transform.position.x));
-        if (Mathf.Abs(mouseSubTargetPosition.x - transform.position.x) >= 0.1 )
-        { 
-        
-        
-            // Move forward(W) and backwards(S)      
-            //thisRigidBody.AddForce(transform.forward * moveForce * inputUpDown * Time.deltaTime * boostMovment);           //Force forward/backwards
-            //thisRigidBody.AddForce(0, 0, moveForce * inputUpDown * boostZDirctionChange * Time.deltaTime * boostMovment); //Force Sotuh/North
-            // transform.Translate(Vector3.forward * moveForce * inputUpDown * Time.deltaTime, Space.World);    // Transalte Sotuh/North
-            transform.Translate(Vector3.forward * moveForce * inputUpDown * Time.deltaTime);    // Transalte forward/backwards
+        if (gameObject == TurnManager.GetInstance().GetCurrentObj())
+        {
+            if (Mathf.Abs(mouseSubTargetPosition.x - transform.position.x) >= 0.1 )
+            {
+                transform.Translate(Vector3.forward * moveForce * inputUpDown * Time.deltaTime);    // Transalte forward/backwards
 
-            // Move Left(A) and Right(D)  
-            //thisRigidBody.AddForce(transform.right * moveForce * inputRightLeft * Time.deltaTime * boostMovment);                 // Force right/left
-            //thisRigidBody.AddForce(moveForce * inputRightLeft * boostXDirctionChange * Time.deltaTime * boostMovment, 0, 0);    // Force West/east
-            //transform.Translate(Vector3.right * moveForce * inputRightLeft * Time.deltaTime, Space.World);            // Transalte West/east
-            //transform.Translate(Vector3.right * moveForce * inputRightLeft * Time.deltaTime);            // Transalte right/left
+                // Move forward(W) and backwards(S)      
+                //thisRigidBody.AddForce(transform.forward * moveForce * inputUpDown * Time.deltaTime * boostMovment);           //Force forward/backwards
+                //thisRigidBody.AddForce(0, 0, moveForce * inputUpDown * boostZDirctionChange * Time.deltaTime * boostMovment); //Force Sotuh/North
+                // transform.Translate(Vector3.forward * moveForce * inputUpDown * Time.deltaTime, Space.World);    // Transalte Sotuh/North
+
+
+                // Move Left(A) and Right(D)  
+                //thisRigidBody.AddForce(transform.right * moveForce * inputRightLeft * Time.deltaTime * boostMovment);                 // Force right/left
+                //thisRigidBody.AddForce(moveForce * inputRightLeft * boostXDirctionChange * Time.deltaTime * boostMovment, 0, 0);    // Force West/east
+                //transform.Translate(Vector3.right * moveForce * inputRightLeft * Time.deltaTime, Space.World);            // Transalte West/east
+                //transform.Translate(Vector3.right * moveForce * inputRightLeft * Time.deltaTime);            // Transalte right/left
+            }
         }
     }
 
@@ -124,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
     private void RotateTowardsMouse()
     {
-        if (checkTurn.IsMyTurn() || checkTurn.PausedButMyTurnNext())
+        if (gameObject == TurnManager.GetInstance().GetCurrentObj() || gameObject == TurnManager.GetInstance().IfNoonesTurnGetNextPlayerObj())
         { 
             Ray rayFromMouse = Camera.main.ScreenPointToRay(Input.mousePosition);
             Plane planeAtPlayer = new Plane(Vector3.up, transform.position);
