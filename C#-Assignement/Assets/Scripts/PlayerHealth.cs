@@ -8,22 +8,22 @@ public class PlayerHealth : MonoBehaviour
 {
     public TextMeshProUGUI ui_HP_Number;
     public Image ui_HP_bar;
-    private float startingHP = 100;
-    private float currentHP = 50;
+    private float maxHP = 5;
+    private float currentHP = 5;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentHP = startingHP;
+        currentHP = maxHP;
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentHP = Mathf.Clamp(currentHP, 0f, startingHP);
+        currentHP = Mathf.Clamp(currentHP, 0f, maxHP);
 
         ui_HP_Number.text = "HP: " +currentHP;
-        ui_HP_bar.fillAmount = currentHP / 100;
+        ui_HP_bar.fillAmount = currentHP / maxHP;
 
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -31,4 +31,11 @@ public class PlayerHealth : MonoBehaviour
             
         }
     }
+
+    public void ModifyHP (float changeAmount)
+    {
+        currentHP += changeAmount;
+    }
+
+
 }

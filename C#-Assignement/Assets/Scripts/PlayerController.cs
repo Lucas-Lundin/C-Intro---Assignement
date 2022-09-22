@@ -8,8 +8,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody thisRigidBody;
-    [SerializeField] private float moveForce = 15f;
-    [SerializeField] private float jumpForce = 150f;
+    private float moveForce = 10f;
+    private float jumpForce = 150f;
     private float inputUpDown;
     private float inputRightLeft;
     private bool inputSpace;

@@ -25,7 +25,10 @@ public class TurnManager : MonoBehaviour
     }
     // End of singleton stuff.
 
-
+    private void Start()
+    {
+        GetComponent<FoodSpawnManager>().SpawnFoodBetweenTurns(); // Spawn food at the start of the game.
+    }
 
 
 
@@ -34,7 +37,8 @@ public class TurnManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            TurnManager.GetInstance().ChangeTurn();
+            TurnManager.GetInstance().ChangeTurn(); // Change turn.
+            
         }
     }
 
@@ -51,6 +55,7 @@ public class TurnManager : MonoBehaviour
         if (turnIndex != 0)  // If a player had the turn (1,2), change the turnIndex to be short pause (0). 
         {
             turnIndex = 0;
+            GetComponent<FoodSpawnManager>().SpawnFoodBetweenTurns(); // Spawn food between turns.
         }
         else                 // If a pause was active (0), change to the next player in line. 
         {
@@ -115,6 +120,12 @@ public class TurnManager : MonoBehaviour
             return turnObjects[0];
         }
     }
+
+    public GameObject GetTurnObjectByIndex(int arrayIndex)
+    {
+        return turnObjects[arrayIndex];
+    }
+
 
 
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7765477932934738806}
   - component: {fileID: 1515989179132693401}
   - component: {fileID: 1810186043639904186}
+  - component: {fileID: 5572226805548563406}
   m_Layer: 0
   m_Name: Food
   m_TagString: Untagged
@@ -42,7 +43,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579859672764653444}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8d40d22484daecb4d854ed832c56936c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -64,6 +65,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5572226805548563406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579859672764653444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff189896e7936d459c5a9a77e6e15c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreAreaP1: {fileID: 6994515838378073259, guid: 8d4a2831493efc54d823545f96929f8b, type: 3}
+  scoreAreaP2: {fileID: 3412088281304820135, guid: 4f9bc8d232a162b45a83eca2821618e4, type: 3}
 --- !u!1 &6237748215454434024
 GameObject:
   m_ObjectHideFlags: 0

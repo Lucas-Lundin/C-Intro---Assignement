@@ -380,7 +380,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8776560224247439354}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5c0323ae7dc82f540a3f8e59dbfe17d4, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -415,14 +415,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliderCheckerPrefab: {fileID: 762082285230667493, guid: 89518b152cb3f4649956ab4ad390afa1, type: 3}
-  MaxHits: 25
-  Radius: 10
-  ExplosiveForce: 500
-  ExplosivveUpForce: 2
-  HitLayer:
+  hitLayer:
     serializedVersion: 2
     m_Bits: 2147483647
-  BlockExplosionLayer:
+  blockExplosionLayer:
     serializedVersion: 2
     m_Bits: 8
 --- !u!1 &8986492562052979436
