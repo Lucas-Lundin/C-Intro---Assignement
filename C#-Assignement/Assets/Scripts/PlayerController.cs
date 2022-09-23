@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,7 +17,11 @@ public class PlayerController : MonoBehaviour
     private bool inputMouseLeftPress;
     private bool inputMouseLeftDown;
     private bool inputMouseLeftUp;
+    private bool inputMouseRightPress;
+    private bool inputMouseRightDown;
+    private bool inputMouseRightUp;
     [SerializeField] private GameObject bombPrefab;
+    [SerializeField] private GameObject bombReversePrefab;
     [SerializeField] private GameObject bomboSpawnPosition;
     
 
@@ -45,6 +50,7 @@ public class PlayerController : MonoBehaviour
         Jump();
         Move();
         ThrowBomb();
+        ThrowBombReverse();
     }
 
     private void FixedUpdate()
@@ -66,6 +72,9 @@ public class PlayerController : MonoBehaviour
             inputMouseLeftPress = Input.GetMouseButton(0);
             inputMouseLeftDown = Input.GetMouseButtonDown(0);
             inputMouseLeftUp = Input.GetMouseButtonUp(0);
+            inputMouseRightPress = Input.GetMouseButton(1);
+            inputMouseRightDown = Input.GetMouseButtonDown(1);
+            inputMouseRightUp = Input.GetMouseButtonUp(1);
         }
         else
         {
@@ -75,6 +84,9 @@ public class PlayerController : MonoBehaviour
             inputMouseLeftPress = false;
             inputMouseLeftDown = false;
             inputMouseLeftUp = false;
+            inputMouseRightPress = false;
+            inputMouseRightDown = false;
+            inputMouseRightUp = false;
         }
     }
 
@@ -112,6 +124,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    /*
     private void ThrowBomb()
     {
         if (inputMouseLeftDown)
@@ -124,6 +137,49 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    */
+    private float channledForceMultipler = 0f;
+    [SerializeField] private Image ui_ChannelForceLeftClick;
+
+    private void ThrowBomb()
+    {
+        if (inputMouseLeftPress)
+        {
+            channledForceMultipler += 3 * Time.deltaTime;
+            channledForceMultipler = Mathf.Clamp(channledForceMultipler, 0.2f, 1f);
+        }
+        if (inputMouseLeftUp)
+        {
+            GameObject bomb;
+
+            bomb = Instantiate(bombPrefab, bomboSpawnPosition.transform.position, transform.rotation); //+ new Vector3(0f, 1f, 1f)
+            bomb.GetComponent<Rigidbody>().AddForce(transform.forward * 1000 * channledForceMultipler);
+            bomb.GetComponent<Rigidbody>().AddForce(transform.up * 100 * channledForceMultipler);
+            channledForceMultipler = 0f;
+        }
+        ui_ChannelForceLeftClick.fillAmount = channledForceMultipler;
+    }
+
+    private void ThrowBombReverse()
+    {
+        if (inputMouseRightPress)
+        {
+            Debug.Log("Rightclick!");
+            channledForceMultipler += 3 * Time.deltaTime;
+            channledForceMultipler = Mathf.Clamp(channledForceMultipler, 0.2f, 1f);
+        }
+        if (inputMouseRightUp)
+        {
+            GameObject bomb;
+
+            bomb = Instantiate(bombReversePrefab, bomboSpawnPosition.transform.position, transform.rotation); //+ new Vector3(0f, 1f, 1f)
+            bomb.GetComponent<Rigidbody>().AddForce(transform.forward * 1000 * channledForceMultipler);
+            bomb.GetComponent<Rigidbody>().AddForce(transform.up * 100 * channledForceMultipler);
+            channledForceMultipler = 0f;
+        }
+        ui_ChannelForceLeftClick.fillAmount = channledForceMultipler;
+    }
+
 
 
     private void RotateTowardsMouse()

@@ -27,7 +27,7 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI ui_P2ScoreText;
     public Image ui_P1ScoreBar;
     public Image ui_P2ScoreBar;
-    private float scoreToWin = 100.0f;
+    private float scoreToWin = 50.0f;
     
     
     public void ModifyScorePlayer1(int amount)

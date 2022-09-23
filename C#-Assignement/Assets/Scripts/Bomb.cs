@@ -8,7 +8,7 @@ public class Bomb : MonoBehaviour
 
     private int maxHits = 45;
     private float collisionRadius = 12f;
-    private float explosiveForce = 1500f;
+    [SerializeField] private float explosiveForce = 1500f;
     private float explosivveUpForce = 0.001f;
     [SerializeField] private LayerMask hitLayer;
     [SerializeField] private LayerMask blockExplosionLayer;

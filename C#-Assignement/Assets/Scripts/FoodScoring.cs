@@ -20,6 +20,11 @@ public class FoodScoring : MonoBehaviour
             ScoreManager.GetInstance().ModifyScorePlayer1(1);
             Destroy(gameObject);
         }
+        if (collisionInfo.gameObject.tag == "ScoreAreaP2")
+        {
+            ScoreManager.GetInstance().ModifyScorePlayer2(1);
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
