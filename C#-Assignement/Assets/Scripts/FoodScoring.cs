@@ -12,7 +12,7 @@ public class FoodScoring : MonoBehaviour
     {
         
     }
-
+    /*
     void OnCollisionEnter(Collision collisionInfo)
     {
         if (collisionInfo.gameObject.tag == "ScoreAreaP1")
@@ -26,6 +26,7 @@ public class FoodScoring : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    */
 
     // Update is called once per frame
     void Update()

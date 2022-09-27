@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI ui_HP_Number;
     public Image ui_HP_bar;
     private float maxHP = 5;
-    private float currentHP = 5;
+    public float currentHP = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -20,15 +20,19 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentHP = Mathf.Clamp(currentHP, 0f, maxHP);
+        CheckIfDead();
 
+        //Clamp current health to not go over max or under 0: 
+        currentHP = Mathf.Clamp(currentHP, 0f, maxHP);
+        
+        // Update ui:
         ui_HP_Number.text = "HP: " +currentHP;
         ui_HP_bar.fillAmount = currentHP / maxHP;
 
-        if (Input.GetKeyDown(KeyCode.T))
+        //Test to take damage:
+        if (Input.GetKeyDown(KeyCode.Y))
         {
-            currentHP -= 10;
-            
+            currentHP -= 1;  
         }
     }
 
@@ -36,6 +40,19 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHP += changeAmount;
     }
+
+    public void CheckIfDead()
+    { 
+    if (currentHP <= 0)
+        {
+            transform.position = new Vector3(0, 8, 0);
+            ScoreManager.GetInstance().ModifyScorePlayerObj(gameObject, -10);
+            currentHP = maxHP;
+            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            gameObject.GetComponent<PlayerController>().UncontrolablePostDeathSet();
+        }
+    }
+
 
 
 }

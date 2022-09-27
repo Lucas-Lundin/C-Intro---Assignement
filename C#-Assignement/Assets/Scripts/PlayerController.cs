@@ -23,7 +23,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private GameObject bombReversePrefab;
     [SerializeField] private GameObject bomboSpawnPosition;
-    
+    public bool uncontrolablePostDeath = false;
+    private float uncontrolablePostDeathSet = 1.0f;
+    private float uncontrolablePostDeathCurrenttime;
 
     private Vector3 mouseSubTargetPosition;
     private Vector3 mouseTargetPosition;
@@ -51,6 +53,7 @@ public class PlayerController : MonoBehaviour
         Move();
         ThrowBomb();
         ThrowBombReverse();
+        UncontrolablePostDeathCountDown();
     }
 
     private void FixedUpdate()
@@ -64,7 +67,7 @@ public class PlayerController : MonoBehaviour
     private void ProcessInput()
     {
         
-        if (gameObject == TurnManager.GetInstance().GetCurrentObj())
+        if (gameObject == TurnManager.GetInstance().GetCurrentObj() && (uncontrolablePostDeath == false))
         {
             inputRightLeft = Input.GetAxis("Horizontal");
             inputUpDown = Input.GetAxis("Vertical");
@@ -89,6 +92,23 @@ public class PlayerController : MonoBehaviour
             inputMouseRightUp = false;
         }
     }
+
+    private void UncontrolablePostDeathCountDown()
+    {
+        uncontrolablePostDeathCurrenttime -= 1 * Time.deltaTime;
+        if (uncontrolablePostDeathCurrenttime <= 0)
+        {
+            uncontrolablePostDeath = false;
+        }
+    }
+
+    public void UncontrolablePostDeathSet()
+    {
+        uncontrolablePostDeathCurrenttime = uncontrolablePostDeathSet;
+        uncontrolablePostDeath = true;
+    }
+
+
 
     private void Move()
     {

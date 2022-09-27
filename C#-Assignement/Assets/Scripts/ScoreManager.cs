@@ -21,22 +21,39 @@ public class ScoreManager : MonoBehaviour
     }
     // End of singleton stuff.
 
-    private float scorePlayer1 = 0;
-    private float scorePlayer2 = 0;
+    private float scorePlayer1 = 10;
+    private float scorePlayer2 = 10;
     public TextMeshProUGUI ui_P1ScoreText;
     public TextMeshProUGUI ui_P2ScoreText;
     public Image ui_P1ScoreBar;
     public Image ui_P2ScoreBar;
-    private float scoreToWin = 50.0f;
-    
-    
-    public void ModifyScorePlayer1(int amount)
+    private float scoreToWin = 100.0f;
+
+
+    public void ModifyScorePlayerIndex(int playerIndex, int amount)
     {
-        scorePlayer1 += amount;
+        if (playerIndex == 1)
+        {
+            scorePlayer1 += amount;
+        }
+        if (playerIndex == 2)
+        {
+            scorePlayer2 += amount;
+        }
+
     }
-    public void ModifyScorePlayer2(int amount)
+
+    public void ModifyScorePlayerObj(GameObject playerObj, int amount)
     {
-        scorePlayer2 += amount;
+        if (playerObj == TurnManager.GetInstance().GetTurnObjectByIndex(1))
+        {
+            scorePlayer1 += amount;
+        }
+        if (playerObj == TurnManager.GetInstance().GetTurnObjectByIndex(2))
+        {
+            scorePlayer2 += amount;
+        }
+
     }
 
     void Update()
@@ -48,6 +65,9 @@ public class ScoreManager : MonoBehaviour
         ui_P2ScoreText.text = (scoreToWin - scorePlayer2) + " left!";
         ui_P2ScoreBar.fillAmount = scorePlayer2 / scoreToWin;
     }
+
+
+
 
 
 

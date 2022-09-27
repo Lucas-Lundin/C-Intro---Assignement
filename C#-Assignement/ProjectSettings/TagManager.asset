@@ -6,6 +6,9 @@ TagManager:
   tags:
   - ScoreAreaP1
   - ScoreAreaP2
+  - Food
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX

@@ -17,9 +17,9 @@ public class FoodSpawnManager : MonoBehaviour
         
     }
 
-    public void SpawnFoodBetweenTurns()
+    public void SpawnFoodBetweenTurns(int amountToSpawnFromTurns)
     {
-        for (int i = 0; i < defualtAmount; i++)
+        for (int i = 0; i < (defualtAmount + amountToSpawnFromTurns); i++)
         {
             
             GameObject spawnedPrefab;
