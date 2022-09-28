@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         ThrowBombReverse();
         UncontrolablePostDeathCountDown();
         CheckIfAllowedToJump();
-        Debug.Log(gameObject.name + " bulletsWhite: " + bulletsWhite);
+        //Debug.Log(gameObject.name + " bulletsWhite: " + bulletsWhite);
     }
 
     private void FixedUpdate()

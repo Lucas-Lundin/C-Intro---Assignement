@@ -6,7 +6,7 @@ public class Bomb : MonoBehaviour
 {
     [SerializeField] private GameObject colliderCheckerPrefab;
 
-    private int maxHits = 45;
+    private int maxHits = 100;
     private float collisionRadius = 12f;
     [SerializeField] private float explosiveForce = 1500f;
     private float explosivveUpForce = 0.001f;
@@ -16,7 +16,7 @@ public class Bomb : MonoBehaviour
 
     private float bombTimerStart = 1.5f;
     private float bombTimerCurrent;
- 
+    [SerializeField] private GameObject explosionParticle;
  
 
     private Collider[] Hits;
@@ -56,10 +56,13 @@ public class Bomb : MonoBehaviour
     private void Explode()
     {
         // Spawn a collider marker:
-        GameObject spawnedCheckerPrefab;
-        spawnedCheckerPrefab = Instantiate(colliderCheckerPrefab, transform.position, transform.rotation);
+        //GameObject spawnedCheckerPrefab;
+        //spawnedCheckerPrefab = Instantiate(colliderCheckerPrefab, transform.position, transform.rotation);
 
-        //Instantiate(ParticleSystemPrefab, transform.position, Quaternion.identity);
+        //particles:
+        Instantiate(explosionParticle, transform.position, Quaternion.identity);
+
+
         int hits = Physics.OverlapSphereNonAlloc(transform.position, collisionRadius, Hits, hitLayer);
 
         for (int i = 0; i < hits; i++)

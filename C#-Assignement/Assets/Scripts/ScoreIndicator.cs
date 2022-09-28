@@ -7,11 +7,31 @@ using UnityEngine.UI;
 public class ScoreIndicator : MonoBehaviour
 {
     public TextMeshProUGUI ui_ScoreIndicatorNumberTMP;
+    private float lifeTimerCurrent = 1f;
+    private float moveSpeed = 2;
 
+    private void Start()
+    {
+        //lifeTimerCurrent = 1f;
+    }
+
+    private void Update()
+    {
+        lifeTimerCurrent -= 1 * Time.deltaTime;
+
+        if (lifeTimerCurrent <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+        transform.position = transform.position + new Vector3(0, moveSpeed * Time.deltaTime, 0);
+
+
+    }
 
 
     // Update is called once per frame
-    void ChangeColor(int playerIndex)
+    public void ChangeColor(int playerIndex)
     {
         if (playerIndex == 1)
         {
@@ -19,7 +39,7 @@ public class ScoreIndicator : MonoBehaviour
         }
         if (playerIndex == 2)
         {
-            ui_ScoreIndicatorNumberTMP.color = TurnManager.GetInstance().Player1Color;
+            ui_ScoreIndicatorNumberTMP.color = TurnManager.GetInstance().Player2Color;
         }
     }
 }

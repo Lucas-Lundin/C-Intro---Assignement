@@ -422,6 +422,7 @@ MonoBehaviour:
   blockExplosionLayer:
     serializedVersion: 2
     m_Bits: 8
+  explosionParticle: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3, type: 3}
 --- !u!1 &8986492562052979436
 GameObject:
   m_ObjectHideFlags: 0

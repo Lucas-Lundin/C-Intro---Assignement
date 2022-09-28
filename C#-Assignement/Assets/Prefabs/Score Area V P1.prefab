@@ -94,4 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14764bd1fa4a184eaeadaff40087188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  belongsToPlayerX: {fileID: 0}
+  belongsToPlayerIndex: 0
+  belongsToPlayerObj: {fileID: 0}
+  scoreIndicatorPrefab: {fileID: 7236835007345019536, guid: 97b5bd1d304079a4aaf961853011720e, type: 3}
