@@ -29,8 +29,9 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 mouseSubTargetPosition;
     private Vector3 mouseTargetPosition;
-
-
+    private bool allowedToJump = true;
+    public int bulletsBlack;
+    public int bulletsWhite;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +55,8 @@ public class PlayerController : MonoBehaviour
         ThrowBomb();
         ThrowBombReverse();
         UncontrolablePostDeathCountDown();
+        CheckIfAllowedToJump();
+        Debug.Log(gameObject.name + " bulletsWhite: " + bulletsWhite);
     }
 
     private void FixedUpdate()
@@ -136,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (inputSpace)
+        if (inputSpace && allowedToJump)
         {
             //transform.Translate(Vector3.up * jumpForce * Time.deltaTime, Space.World);
             thisRigidBody.AddForce(transform.up * jumpForce);
@@ -163,43 +166,51 @@ public class PlayerController : MonoBehaviour
 
     private void ThrowBomb()
     {
-        if (inputMouseLeftPress)
-        {
-            channledForceMultipler += 3 * Time.deltaTime;
-            channledForceMultipler = Mathf.Clamp(channledForceMultipler, 0.2f, 1f);
-        }
-        if (inputMouseLeftUp)
-        {
-            GameObject bomb;
+        if (bulletsBlack >= 1)
+        { 
+            if (inputMouseLeftPress)
+            {
+                
+                channledForceMultipler += 3 * Time.deltaTime;
+                channledForceMultipler = Mathf.Clamp(channledForceMultipler, 0.2f, 1f);
+            }
+            if (inputMouseLeftUp || (inputMouseLeftPress && TurnManager.GetInstance().turnTimeCurrentLeft <= 0.05f))
+            {
+                bulletsBlack -= 1;
+                GameObject bomb;
 
-            bomb = Instantiate(bombPrefab, bomboSpawnPosition.transform.position, transform.rotation); //+ new Vector3(0f, 1f, 1f)
-            bomb.GetComponent<Rigidbody>().AddForce(transform.forward * 1000 * channledForceMultipler);
-            bomb.GetComponent<Rigidbody>().AddForce(transform.up * 100 * channledForceMultipler);
-            channledForceMultipler = 0f;
+                bomb = Instantiate(bombPrefab, bomboSpawnPosition.transform.position, transform.rotation); //+ new Vector3(0f, 1f, 1f)
+                bomb.GetComponent<Rigidbody>().AddForce(transform.forward * 1000 * channledForceMultipler);
+                bomb.GetComponent<Rigidbody>().AddForce(transform.up * 100 * channledForceMultipler);
+                channledForceMultipler = 0f;
+            }
+            ui_ChannelForceLeftClick.fillAmount = channledForceMultipler;
         }
-        ui_ChannelForceLeftClick.fillAmount = channledForceMultipler;
     }
 
     private void ThrowBombReverse()
     {
-        if (inputMouseRightPress)
+        if (bulletsWhite >= 1)
         {
-            Debug.Log("Rightclick!");
-            channledForceMultipler += 3 * Time.deltaTime;
-            channledForceMultipler = Mathf.Clamp(channledForceMultipler, 0.2f, 1f);
-        }
-        if (inputMouseRightUp)
-        {
-            GameObject bomb;
+            if (inputMouseRightPress)
+            {
+                Debug.Log("Rightclick!");
+                channledForceMultipler += 3 * Time.deltaTime;
+                channledForceMultipler = Mathf.Clamp(channledForceMultipler, 0.2f, 1f);
+            }
+            if (inputMouseRightUp || (inputMouseRightPress && TurnManager.GetInstance().turnTimeCurrentLeft <= 0.05f))
+            {
+                bulletsWhite -= 1;
+                GameObject bomb;
 
-            bomb = Instantiate(bombReversePrefab, bomboSpawnPosition.transform.position, transform.rotation); //+ new Vector3(0f, 1f, 1f)
-            bomb.GetComponent<Rigidbody>().AddForce(transform.forward * 1000 * channledForceMultipler);
-            bomb.GetComponent<Rigidbody>().AddForce(transform.up * 100 * channledForceMultipler);
-            channledForceMultipler = 0f;
+                bomb = Instantiate(bombReversePrefab, bomboSpawnPosition.transform.position, transform.rotation); //+ new Vector3(0f, 1f, 1f)
+                bomb.GetComponent<Rigidbody>().AddForce(transform.forward * 1000 * channledForceMultipler);
+                bomb.GetComponent<Rigidbody>().AddForce(transform.up * 100 * channledForceMultipler);
+                channledForceMultipler = 0f;
+            }
+            ui_ChannelForceLeftClick.fillAmount = channledForceMultipler;
         }
-        ui_ChannelForceLeftClick.fillAmount = channledForceMultipler;
     }
-
 
 
     private void RotateTowardsMouse()
@@ -218,6 +229,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private void CheckIfAllowedToJump()
+    {
+        if (thisRigidBody.velocity.y < 0.1f && thisRigidBody.velocity.y > -0.1f)
+        {
+            allowedToJump = true;
+        }
+        else 
+        {
+            allowedToJump = false;
+        }
+    }
 
 
 }

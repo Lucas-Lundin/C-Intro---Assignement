@@ -14,8 +14,10 @@ public class MonsterManager : MonoBehaviour
         {
             ScoreManager.GetInstance().ModifyScorePlayerIndex(belongsToPlayerIndex, 1);
             Destroy(collisionInfo.gameObject);
+            // Spaawn a scoreing indicator:
+            //scoreIndicatorSpawned = Instantiate
 
-            
+
         }
         PlayerDieToMonster("Player1", collisionInfo);
         PlayerDieToMonster("Player2", collisionInfo);

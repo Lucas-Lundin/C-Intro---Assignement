@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+//using System.Collections;
+//using System.Collections.Generic;
+//using System.Drawing;
 using System.Globalization;
 using TMPro;
-using Unity.VisualScripting;
+//using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 //using static System.Net.Mime.MediaTypeNames;
@@ -19,12 +20,13 @@ public class TurnManager : MonoBehaviour
     private float fadeMuliplierNextPlayerUI;
     [SerializeField] private Image ui_SwitchPlayerTimerR;
     [SerializeField] private Image ui_SwitchPlayerTimerV;
-    [SerializeField] private Color Player1Color;
-    [SerializeField] private Color Player2Color;
+    [SerializeField] public Color Player1Color;
+    [SerializeField] public Color Player2Color;
+    [SerializeField] private Image ui_TurnTimerCircle;
 
-    private float turnTimePlayer = 10.0f;
-    private float turnTimeNoone = 2.0f;
-    private float turnTimeCurrentLeft = 0;
+    private float turnTimePlayer = 5.5f;
+    private float turnTimeNoone = 2.5f;
+    public float turnTimeCurrentLeft = 0;
 
     public int numberOfTurns = 0;
 
@@ -75,8 +77,24 @@ public class TurnManager : MonoBehaviour
 
     private void RenderNextPlayerUI() 
     {
-         
         if (GetTurnIndex() == 0)
+        {
+            ui_TurnTimerCircle.fillAmount = Mathf.Clamp01(turnTimeCurrentLeft / turnTimeNoone);
+            ui_TurnTimerCircle.color = new Vector4(0f, 0f, 0f, 0.35f * fadeMuliplierNextPlayerUI);
+        }
+        if (GetTurnIndex() == 1)
+        {
+            ui_TurnTimerCircle.fillAmount = Mathf.Clamp01(turnTimeCurrentLeft / turnTimePlayer);
+            ui_TurnTimerCircle.color = Player1Color;
+        }
+        if (GetTurnIndex() == 2)
+        {
+            ui_TurnTimerCircle.fillAmount = Mathf.Clamp01(turnTimeCurrentLeft / turnTimePlayer);
+            ui_TurnTimerCircle.color = Player2Color;
+        }
+
+
+            if (GetTurnIndex() == 0)
         {
             fadeMuliplierNextPlayerUI = Mathf.Lerp(fadeMuliplierNextPlayerUI, 1, 0.1f);
 
@@ -85,8 +103,8 @@ public class TurnManager : MonoBehaviour
             ui_SwitchPlayerBG.color = new Vector4(0f, 0f, 0f, 0.15f * fadeMuliplierNextPlayerUI);
 
             ui_SwitchPlayerPlayerX.text = "PLAYER " + GetNextPlayerInLine();
-            ui_SwitchPlayerTimerR.fillAmount = Mathf.Clamp01(turnTimeCurrentLeft/turnTimeNoone);
-            ui_SwitchPlayerTimerV.fillAmount = Mathf.Clamp01(turnTimeCurrentLeft / turnTimeNoone);
+            //ui_SwitchPlayerTimerR.fillAmount = Mathf.Clamp01(turnTimeCurrentLeft/turnTimeNoone);
+            //ui_SwitchPlayerTimerV.fillAmount = Mathf.Clamp01(turnTimeCurrentLeft / turnTimeNoone);
             if (GetNextPlayerInLine() == 1)
             {
                 ui_SwitchPlayerPlayerX.color = Player1Color;
@@ -112,6 +130,12 @@ public class TurnManager : MonoBehaviour
     
     public void ChangeTurn()
     {
+        // Give the players new bullets:
+        turnObjects[1].GetComponent<PlayerController>().bulletsBlack = 1;
+        turnObjects[2].GetComponent<PlayerController>().bulletsBlack = 1;
+        turnObjects[1].GetComponent<PlayerController>().bulletsWhite = 1;
+        turnObjects[2].GetComponent<PlayerController>().bulletsWhite = 1;
+
         /* Changes turn when callled: 
         0 = noones turn
         1 = player 1

@@ -18,8 +18,12 @@ public class CameraFollower : MonoBehaviour
     [SerializeField] private float ArenaOffsetZ;
 
 
+
+
     void Update()
     {
+       
+
         if (0 == TurnManager.GetInstance().GetTurnIndex())
         { 
             Follow(TurnManager.GetInstance().GetCurrentPlayerObjElseNext(), 0.008f);
@@ -32,11 +36,12 @@ public class CameraFollower : MonoBehaviour
 
     void Follow(GameObject targetObject, float lerpSpeed)
     {
-    
+         
 
         float targetX = targetObject.transform.position.x + playerOffsetX;
         float targetY = transform.position.y + playerOffsetY;
         float targetZ = targetObject.transform.position.z + playerOffsetZ;
+
         Vector3 targetV3 = new Vector3(targetX, targetY, targetZ);
 
         transform.position = Vector3.Lerp(transform.position, targetV3, lerpSpeed);

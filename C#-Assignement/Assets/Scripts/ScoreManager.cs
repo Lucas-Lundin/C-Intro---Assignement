@@ -21,10 +21,12 @@ public class ScoreManager : MonoBehaviour
     }
     // End of singleton stuff.
 
-    private float scorePlayer1 = 10;
-    private float scorePlayer2 = 10;
+    public float scorePlayer1 = 10;
+    public float scorePlayer2 = 10;
     public TextMeshProUGUI ui_P1ScoreText;
+    public TextMeshProUGUI ui_P1ScoreTextCenter;
     public TextMeshProUGUI ui_P2ScoreText;
+    public TextMeshProUGUI ui_P2ScoreTextCenter;
     public Image ui_P1ScoreBar;
     public Image ui_P2ScoreBar;
     private float scoreToWin = 100.0f;
@@ -59,10 +61,12 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {   
         // Player 1 Score:
-        ui_P1ScoreText.text = (scoreToWin - scorePlayer1) + " left!";
+        ui_P1ScoreText.text = "Score: " + scorePlayer1;
+        ui_P1ScoreTextCenter.text = "Score: " + scorePlayer1;
         ui_P1ScoreBar.fillAmount = scorePlayer1 / scoreToWin;
         // Player 2 Score:
-        ui_P2ScoreText.text = (scoreToWin - scorePlayer2) + " left!";
+        ui_P2ScoreText.text = "Score: " + scorePlayer2;
+        ui_P2ScoreTextCenter.text = "Score: " + scorePlayer2;
         ui_P2ScoreBar.fillAmount = scorePlayer2 / scoreToWin;
     }
 
