@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public Image ui_HP_bar;
     private float maxHP = 5;
     public float currentHP = 5;
+    [SerializeField] private GameObject playerDeathParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -45,11 +46,18 @@ public class PlayerHealth : MonoBehaviour
     { 
     if (currentHP <= 0)
         {
+            //particle at death position: 
+            Instantiate(playerDeathParticle, transform.position, Quaternion.identity);
+
             transform.position = new Vector3(0, 8, 0);
             ScoreManager.GetInstance().ModifyScorePlayerObj(gameObject, -10);
             currentHP = maxHP;
             gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             gameObject.GetComponent<PlayerController>().UncontrolablePostDeathSet();
+
+            //particle at respawn position: 
+            Instantiate(playerDeathParticle, transform.position, Quaternion.identity);
+
         }
     }
 

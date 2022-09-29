@@ -17,7 +17,9 @@ public class Bomb : MonoBehaviour
     private float bombTimerStart = 1.5f;
     private float bombTimerCurrent;
     [SerializeField] private GameObject explosionParticle;
- 
+    [SerializeField] private GameObject explosionParticleTwo;
+    [SerializeField] private bool useTwoParticles = false;
+    [SerializeField] private GameObject playerDmgParticle;
 
     private Collider[] Hits;
     private void Awake()
@@ -59,8 +61,14 @@ public class Bomb : MonoBehaviour
         //GameObject spawnedCheckerPrefab;
         //spawnedCheckerPrefab = Instantiate(colliderCheckerPrefab, transform.position, transform.rotation);
 
-        //particles:
+        //particles 1:
         Instantiate(explosionParticle, transform.position, Quaternion.identity);
+
+        //particles 2:
+        if (useTwoParticles)
+        {
+            Instantiate(explosionParticleTwo, transform.position, Quaternion.identity);
+        }
 
 
         int hits = Physics.OverlapSphereNonAlloc(transform.position, collisionRadius, Hits, hitLayer);
@@ -81,6 +89,9 @@ public class Bomb : MonoBehaviour
                     {
                         rigidbody.GetComponent<PlayerHealth>().ModifyHP(explosionDamage);
                         Debug.Log("" + rigidbody.name + "ModifyHP " + explosionDamage);
+                        //particle: CFX_Hit_C - White
+                        Instantiate(playerDmgParticle, rigidbody.gameObject.transform.position, Quaternion.identity);
+
                     }
 
                 }

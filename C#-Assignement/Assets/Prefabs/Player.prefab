@@ -88,6 +88,8 @@ MonoBehaviour:
   bombReversePrefab: {fileID: 8776560224247439354, guid: 665afaa2869fba14d992a71062c056a4, type: 3}
   bomboSpawnPosition: {fileID: 4580436866707217583}
   uncontrolablePostDeath: 0
+  bulletsBlack: 0
+  bulletsWhite: 0
   ui_ChannelForceLeftClick: {fileID: 0}
 --- !u!114 &150244273192337049
 MonoBehaviour:
@@ -104,6 +106,7 @@ MonoBehaviour:
   ui_HP_Number: {fileID: 0}
   ui_HP_bar: {fileID: 0}
   currentHP: 5
+  playerDeathParticle: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
 --- !u!1 &3327818524929849066
 GameObject:
   m_ObjectHideFlags: 0

@@ -423,6 +423,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   explosionParticle: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3, type: 3}
+  explosionParticleTwo: {fileID: 0}
+  useTwoParticles: 0
+  playerDmgParticle: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
 --- !u!1 &8986492562052979436
 GameObject:
   m_ObjectHideFlags: 0
