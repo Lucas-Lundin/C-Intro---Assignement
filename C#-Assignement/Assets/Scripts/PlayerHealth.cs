@@ -56,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
             gameObject.GetComponent<PlayerController>().UncontrolablePostDeathSet();
 
             //particle at respawn position: 
-            Instantiate(playerDeathParticle, transform.position, Quaternion.identity);
+            Instantiate(playerDeathParticle, transform.position + new Vector3(0, -3, 0), Quaternion.identity);
 
         }
     }
